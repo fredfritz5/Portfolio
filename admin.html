@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Admin - Content Management</title>
+    <meta name="description" content="Admin panel for portfolio content management">
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body class="admin-body">
+    <!-- Admin Login Modal -->
+    <div id="login-modal" class="modal active">
+        <div class="modal-content">
+            <h2>Admin Login</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="admin-password">Password</label>
+                    <input type="password" id="admin-password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+                <p class="security-warning">
+                    ⚠️ <strong>Security Notice:</strong> This is client-side authentication for demo purposes only. 
+                    Not suitable for production use. Default password: <code>admin123</code>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Interface -->
+    <div id="admin-interface" class="admin-interface" style="display: none;">
+        <!-- Admin Header -->
+        <header class="admin-header">
+            <div class="admin-nav">
+                <h1>Portfolio Admin</h1>
+                <div class="admin-actions">
+                    <button class="btn btn-secondary" id="preview-btn">Preview Site</button>
+                    <button class="btn btn-secondary" id="export-btn">Export Data</button>
+                    <button class="btn btn-secondary" id="import-btn">Import Data</button>
+                    <input type="file" id="import-file" accept=".json" style="display: none;">
+                    <button class="btn btn-danger" id="logout-btn">Logout</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Admin Main Content -->
+        <main class="admin-main">
+            <!-- Sidebar -->
+            <aside class="admin-sidebar">
+                <nav class="admin-menu">
+                    <button class="admin-menu-item active" data-section="general">General</button>
+                    <button class="admin-menu-item" data-section="hero">Hero Section</button>
+                    <button class="admin-menu-item" data-section="about">About</button>
+                    <button class="admin-menu-item" data-section="skills">Skills</button>
+                    <button class="admin-menu-item" data-section="projects">Projects</button>
+                    <button class="admin-menu-item" data-section="contact">Contact</button>
+                    <button class="admin-menu-item" data-section="theme">Theme</button>
+                    <button class="admin-menu-item" data-section="settings">Settings</button>
+                </nav>
+            </aside>
+
+            <!-- Content Area -->
+            <div class="admin-content">
+                <!-- Draft/Publish Controls -->
+                <div class="publish-controls">
+                    <div class="draft-status" id="draft-status">
+                        <span class="status-indicator"></span>
+                        <span id="status-text">All changes published</span>
+                    </div>
+                    <button class="btn btn-primary" id="publish-btn" disabled>Publish Changes</button>
+                </div>
+
+                <!-- General Section -->
+                <section id="general-section" class="admin-section active">
+                    <h2>General Settings</h2>
+                    <div class="form-group">
+                        <label for="site-title-input">Site Title</label>
+                        <input type="text" id="site-title-input" placeholder="Your Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="site-description-input">Site Description</label>
+                        <textarea id="site-description-input" rows="3" placeholder="Site description for SEO"></textarea>
+                    </div>
+                </section>
+
+                <!-- Hero Section -->
+                <section id="hero-section" class="admin-section">
+                    <h2>Hero Section</h2>
+                    <div class="form-group">
+                        <label for="hero-title-input">Hero Title</label>
+                        <input type="text" id="hero-title-input" placeholder="Your Professional Title">
+                    </div>
+                    <div class="form-group">
+                        <label for="hero-subtitle-input">Hero Subtitle</label>
+                        <textarea id="hero-subtitle-input" rows="2" placeholder="Your tagline or description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="hero-photo-input">Professional Photo</label>
+                        <div class="photo-upload">
+                            <input type="file" id="hero-photo-input" accept="image/*">
+                            <div class="photo-preview">
+                                <img id="hero-photo-preview" src="/assets/default-photo.jpg" alt="Photo Preview">
+                            </div>
+                            <p class="file-info">Recommended: Square image, max 5MB</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- About Section -->
+                <section id="about-section" class="admin-section">
+                    <h2>About Section</h2>
+                    <div class="form-group">
+                        <label for="about-content-input">About Content</label>
+                        <textarea id="about-content-input" rows="10" placeholder="Write about yourself, achievements, certifications..."></textarea>
+                        <p class="form-help">You can use HTML tags for formatting (p, h3, ul, li, strong, em)</p>
+                    </div>
+                </section>
+
+                <!-- Skills Section -->
+                <section id="skills-section" class="admin-section">
+                    <h2>Skills Management</h2>
+                    <div class="skills-manager">
+                        <div class="section-header">
+                            <h3>Current Skills</h3>
+                            <button class="btn btn-primary" id="add-skill-btn">Add Skill</button>
+                        </div>
+                        <div id="skills-manager" class="skills-list">
+                            <!-- Skills will be populated here -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Projects Section -->
+                <section id="projects-section" class="admin-section">
+                    <h2>Projects Management</h2>
+                    <div class="projects-manager">
+                        <div class="section-header">
+                            <h3>Current Projects</h3>
+                            <button class="btn btn-primary" id="add-project-btn">Add Project</button>
+                        </div>
+                        <div id="projects-manager" class="projects-list">
+                            <!-- Projects will be populated here -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Contact Section -->
+                <section id="contact-section" class="admin-section">
+                    <h2>Contact Information</h2>
+                    <div class="form-group">
+                        <label for="contact-email-input">Email</label>
+                        <input type="email" id="contact-email-input" placeholder="your@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-location-input">Location</label>
+                        <input type="text" id="contact-location-input" placeholder="City, State/Country">
+                    </div>
+                    <div class="form-group">
+                        <label for="linkedin-input">LinkedIn URL</label>
+                        <input type="url" id="linkedin-input" placeholder="https://linkedin.com/in/yourname">
+                    </div>
+                    <div class="form-group">
+                        <label for="github-input">GitHub URL</label>
+                        <input type="url" id="github-input" placeholder="https://github.com/yourname">
+                    </div>
+                    <div class="form-group">
+                        <label for="twitter-input">Twitter URL</label>
+                        <input type="url" id="twitter-input" placeholder="https://twitter.com/yourname">
+                    </div>
+                </section>
+
+                <!-- Theme Section -->
+                <section id="theme-section" class="admin-section">
+                    <h2>Theme Customization</h2>
+                    <div class="theme-controls">
+                        <div class="form-group">
+                            <label for="primary-color">Primary Color</label>
+                            <input type="color" id="primary-color" value="#3B82F6">
+                        </div>
+                        <div class="form-group">
+                            <label for="secondary-color">Secondary Color</label>
+                            <input type="color" id="secondary-color" value="#14B8A6">
+                        </div>
+                        <div class="form-group">
+                            <label for="accent-color">Accent Color</label>
+                            <input type="color" id="accent-color" value="#F97316">
+                        </div>
+                        <div class="form-group">
+                            <label>Default Theme</label>
+                            <div class="radio-group">
+                                <label><input type="radio" name="default-theme" value="light"> Light</label>
+                                <label><input type="radio" name="default-theme" value="dark"> Dark</label>
+                            </div>
+                        </div>
+                        <button class="btn btn-secondary" id="reset-theme-btn">Reset to Default</button>
+                    </div>
+                </section>
+
+                <!-- Settings Section -->
+                <section id="settings-section" class="admin-section">
+                    <h2>Admin Settings</h2>
+                    <div class="settings-controls">
+                        <div class="form-group">
+                            <label for="current-password">Current Password</label>
+                            <input type="password" id="current-password">
+                        </div>
+                        <div class="form-group">
+                            <label for="new-password">New Password</label>
+                            <input type="password" id="new-password">
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm-password">Confirm New Password</label>
+                            <input type="password" id="confirm-password">
+                        </div>
+                        <button class="btn btn-primary" id="change-password-btn">Change Password</button>
+                        
+                        <hr>
+                        
+                        <div class="danger-zone">
+                            <h3>Danger Zone</h3>
+                            <button class="btn btn-danger" id="reset-all-btn">Reset All Data to Defaults</button>
+                            <p class="form-help">This will permanently delete all your content and restore default data.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Skill Modal -->
+    <div id="skill-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <h3 id="skill-modal-title">Add Skill</h3>
+            <form id="skill-form">
+                <div class="form-group">
+                    <label for="skill-name">Skill Name</label>
+                    <input type="text" id="skill-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="skill-proficiency">Proficiency (0-100)</label>
+                    <input type="range" id="skill-proficiency" min="0" max="100" value="50">
+                    <span id="proficiency-value">50</span>%
+                </div>
+                <div class="form-group">
+                    <label for="skill-color">Color</label>
+                    <input type="color" id="skill-color" value="#3B82F6">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" id="cancel-skill-btn">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Skill</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Project Modal -->
+    <div id="project-modal" class="modal">
+        <div class="modal-content large">
+            <span class="modal-close">&times;</span>
+            <h3 id="project-modal-title">Add Project</h3>
+            <form id="project-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="project-title">Project Title</label>
+                        <input type="text" id="project-title" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="project-link">Project Link (Live/Repo)</label>
+                        <input type="url" id="project-link">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="project-description">Description</label>
+                    <textarea id="project-description" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="project-tags">Tech Stack (comma-separated)</label>
+                    <input type="text" id="project-tags" placeholder="React, Node.js, MongoDB">
+                </div>
+                <div class="form-group">
+                    <label for="project-thumbnail">Thumbnail Image</label>
+                    <input type="file" id="project-thumbnail" accept="image/*">
+                    <p class="form-help">Recommended: 16:9 aspect ratio, max 5MB</p>
+                </div>
+                <div class="form-group">
+                    <label for="project-video">Demo Video URL (YouTube/Vimeo recommended)</label>
+                    <input type="url" id="project-video" placeholder="https://youtube.com/watch?v=...">
+                    <p class="form-help">For best performance, use YouTube or Vimeo links instead of uploading large video files.</p>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" id="cancel-project-btn">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Project</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="/js/admin.js"></script>
+</body>
+</html>

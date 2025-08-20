@@ -1,0 +1,94 @@
+{
+  "general": {
+    "siteTitle": "John Doe",
+    "siteDescription": "Full Stack Developer specializing in modern web technologies. View my portfolio and get in touch."
+  },
+  "hero": {
+    "title": "Full Stack Developer",
+    "subtitle": "Creating digital experiences that inspire and engage",
+    "photo": "/assets/default-photo.jpg"
+  },
+  "about": {
+    "content": "<p>I'm a passionate full-stack developer with over 5 years of experience creating web applications that solve real-world problems. I specialize in modern JavaScript frameworks, cloud technologies, and user-centered design.</p>\n\n<p>When I'm not coding, you can find me exploring new technologies, contributing to open source projects, or sharing knowledge with the developer community.</p>\n\n<h3>Achievements & Certifications</h3>\n<ul>\n<li>AWS Certified Solutions Architect</li>\n<li>Google Cloud Professional Developer</li>\n<li>React Specialist Certification</li>\n<li>Contributing member to 10+ open source projects</li>\n</ul>"
+  },
+  "skills": [
+    {
+      "id": 1,
+      "name": "JavaScript",
+      "proficiency": 95,
+      "color": "#F7DF1E"
+    },
+    {
+      "id": 2,
+      "name": "React",
+      "proficiency": 90,
+      "color": "#61DAFB"
+    },
+    {
+      "id": 3,
+      "name": "Node.js",
+      "proficiency": 85,
+      "color": "#339933"
+    },
+    {
+      "id": 4,
+      "name": "Python",
+      "proficiency": 80,
+      "color": "#3776AB"
+    },
+    {
+      "id": 5,
+      "name": "AWS",
+      "proficiency": 75,
+      "color": "#FF9900"
+    },
+    {
+      "id": 6,
+      "name": "Docker",
+      "proficiency": 70,
+      "color": "#2496ED"
+    }
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "title": "E-Commerce Platform",
+      "description": "A full-featured e-commerce platform built with React, Node.js, and MongoDB. Features include user authentication, payment processing, and admin dashboard.",
+      "tags": ["React", "Node.js", "MongoDB", "Stripe"],
+      "thumbnail": "https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "videoUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      "projectLink": "https://github.com/johndoe/ecommerce"
+    },
+    {
+      "id": 2,
+      "title": "Task Management App",
+      "description": "A collaborative task management application with real-time updates, drag-and-drop functionality, and team collaboration features.",
+      "tags": ["Vue.js", "Express", "Socket.io", "PostgreSQL"],
+      "thumbnail": "https://images.pexels.com/photos/3184295/pexels-photo-3184295.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "videoUrl": "https://vimeo.com/123456789",
+      "projectLink": "https://github.com/johndoe/taskmanager"
+    },
+    {
+      "id": 3,
+      "title": "Weather Dashboard",
+      "description": "A responsive weather dashboard that provides current conditions and forecasts using multiple weather APIs with beautiful data visualizations.",
+      "tags": ["JavaScript", "Chart.js", "OpenWeather API", "CSS Grid"],
+      "thumbnail": "https://images.pexels.com/photos/1118873/pexels-photo-1118873.jpeg?auto=compress&cs=tinysrgb&w=800",
+      "videoUrl": "",
+      "projectLink": "https://github.com/johndoe/weather-dashboard"
+    }
+  ],
+  "contact": {
+    "email": "john@example.com",
+    "location": "San Francisco, CA",
+    "linkedin": "https://linkedin.com/in/johndoe",
+    "github": "https://github.com/johndoe",
+    "twitter": "https://twitter.com/johndoe"
+  },
+  "theme": {
+    "primaryColor": "#3B82F6",
+    "secondaryColor": "#14B8A6",
+    "accentColor": "#F97316",
+    "defaultTheme": "light"
+  }
+}
